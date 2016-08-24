@@ -1,0 +1,3 @@
+module FriendlyRoutes
+  # Your code goes here...
+end
