@@ -1,6 +1,7 @@
 # Friendly Routes
 Friendly Routes creates DSL for creating rails routes with human friendly URLs
 
+[![Code Climate](https://codeclimate.com/github/RoM4iK/friendly_routes/badges/gpa.svg)](https://codeclimate.com/github/RoM4iK/friendly_routes)
 ## Usage
 How to use my plugin.
 
