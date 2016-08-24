@@ -1,3 +1,3 @@
+require 'friendly_routes/route'
 module FriendlyRoutes
-  # Your code goes here...
 end
