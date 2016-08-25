@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require 'rails_helper'
 
 module FriendlyRoutes
@@ -10,13 +9,12 @@ module FriendlyRoutes
       before do
         @method = 'get'
         @path = '/'
+        @controller = 'items'
         @action = 'index'
-        @to = 'items#index'
-        stub_const('ItemsController', @controller)
       end
 
       def call
-        Route.new(@method, @path, @to)
+        Route.new(@method, @path, controller: @controller, action: @action)
       end
 
       describe 'should set instance variables' do
