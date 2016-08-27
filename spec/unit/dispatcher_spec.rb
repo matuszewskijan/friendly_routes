@@ -11,9 +11,10 @@ module FriendlyRoutes
       end
       it 'should call method with router params' do
         expect(subject).to receive(:get).with(
-          '/',
+          @route.path,
           controller: @controller,
-          action: @action
+          action: @action,
+          friendly_route: @route
         )
         expect(subject.friendly_url_for(@route))
       end

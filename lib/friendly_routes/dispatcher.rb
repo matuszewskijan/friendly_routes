@@ -5,7 +5,8 @@ module FriendlyRoutes
         route.method,
         route.path,
         controller: route.controller,
-        action: route.action
+        action: route.action,
+        friendly_route: route
       )
     end
   end
