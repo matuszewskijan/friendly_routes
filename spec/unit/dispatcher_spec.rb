@@ -14,7 +14,8 @@ module FriendlyRoutes
           @route.path,
           controller: @controller,
           action: @action,
-          friendly_route: @route
+          friendly_route: @route,
+          as: @route.as
         )
         expect(subject.friendly_url_for(@route))
       end
