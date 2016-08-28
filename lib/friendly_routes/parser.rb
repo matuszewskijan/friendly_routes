@@ -9,7 +9,7 @@ module FriendlyRoutes
 
     def call
       @route.params.each do |param|
-        send(param[:type], param)
+        send(param.type, param)
       end
     end
 
@@ -18,7 +18,7 @@ module FriendlyRoutes
     def boolean(param)
       value = @params[@route.prefixed_param_name(param)]
       return unless value
-      @params[param[:name]] = value == param[:true]
+      @params[param.name] = value == param.true
     end
   end
 end

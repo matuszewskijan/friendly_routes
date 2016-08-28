@@ -22,20 +22,20 @@ describe DummiesController do
         end
         context 'When true value passed' do
           before do
-            stub_params @params.merge(@prefixed_name => @param[:true])
+            stub_params @params.merge(@prefixed_name => @param.true)
             get :index
           end
           it 'should set true value' do
-            expect(controller.params[@param[:name]]).to be true
+            expect(controller.params[@param.name]).to be true
           end
         end
         context 'When false value passed' do
           before do
-            stub_params @params.merge(@prefixed_name => @param[:false])
+            stub_params @params.merge(@prefixed_name => @param.false)
             get :index
           end
           it 'should set false value' do
-            expect(controller.params[@param[:name]]).to be false
+            expect(controller.params[@param.name]).to be false
           end
         end
       end

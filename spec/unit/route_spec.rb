@@ -37,15 +37,14 @@ module FriendlyRoutes
         before do
           @condition_name = :leaned
           @condition_params = { true: :leaned, false: :not_leaned }
-          @route.boolean(@condition_name, @condition_params)
+          @param = double('Param')
         end
-        it 'should pass condition to params array' do
-          expect(@route.params).to include(
-            @condition_params.merge(
-              type: :boolean,
-              name: @condition_name
-            )
-          )
+        it 'should add boolean param to params array' do
+          expect(Params::Boolean).to receive(:new).with(@condition_name, @condition_params) do
+            @param
+          end
+          @route.boolean(@condition_name, @condition_params)
+          expect(@route.params).to include(@param)
         end
       end
 

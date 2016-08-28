@@ -12,22 +12,22 @@ module FriendlyRoutes
       end
       context 'When value is true' do
         before do
-          @params[@route.prefixed_param_name(@param)] = @param[:true]
+          @params[@route.prefixed_param_name(@param)] = @param.true
           parser = Parser.new(@params)
           parser.call
         end
         it 'should set true to params' do
-          expect(@params[@param[:name]]).to be true
+          expect(@params[@param.name]).to be true
         end
       end
       context 'When value is false' do
         before do
-          @params[@route.prefixed_param_name(@param)] = @param[:false]
+          @params[@route.prefixed_param_name(@param)] = @param.false
           parser = Parser.new(@params)
           parser.call
         end
         it 'should set false to params' do
-          expect(@params[@param[:name]]).to be false
+          expect(@params[@param.name]).to be false
         end
       end
     end

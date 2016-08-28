@@ -14,9 +14,7 @@ module FriendlyRoutes
     end
 
     def boolean(name, params)
-      condition_passed = params[:true] && params[:false]
-      raise ArgumentError, 'True and false params is required' unless condition_passed
-      @params.push(params.merge(type: :boolean, name: name))
+      @params.push(Params::Boolean.new(name, params))
     end
 
     def path
@@ -24,11 +22,14 @@ module FriendlyRoutes
     end
 
     def prefixed_param_name(param)
-      "#{@prefix}_#{param[:name]}"
+      "#{@prefix}_#{param.name}"
     end
 
     def as
       "#{@prefix}_#{@controller}_#{@action}"
+    end
+
+    def constraints
     end
 
     private
