@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe DummiesController do
   describe 'Basic' do
@@ -13,7 +13,7 @@ describe DummiesController do
           allow(controller).to receive(:params) { params }
         end
         before do
-          @route = build(:route, boolean_conditions: 1)
+          @route = build(:route, boolean_params: 1)
           @param = @route.params.first
           @prefixed_name = @route.prefixed_param_name(@param)
           @params = {

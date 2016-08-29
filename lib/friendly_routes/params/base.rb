@@ -9,6 +9,10 @@ module FriendlyRoutes
         @type = type
         @name = name
       end
+
+      def constraints
+        raise NotImplementedError
+      end
     end
   end
 end

@@ -9,6 +9,7 @@ module FriendlyRoutes
         controller: route.controller,
         action: route.action,
         friendly_route: route,
+        constraints: route.constraints,
         as: route.as
       )
     end

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 module FriendlyRoutes
   describe Route do
@@ -29,6 +29,7 @@ module FriendlyRoutes
         end
       end
     end
+
     describe '#boolean' do
       before do
         @route = build(:route)
@@ -47,35 +48,30 @@ module FriendlyRoutes
           expect(@route.params).to include(@param)
         end
       end
-
-      context 'When correct params not passed' do
-        shared_examples 'failed creation' do |params|
-          it 'should rise ArgumentError' do
-            expect { @route.boolean(Faker::Hipster.word, params) }.to raise_error(ArgumentError)
-          end
-        end
-        context 'When only true passed' do
-          it_behaves_like 'failed creation', true: Faker::Hipster.word
-        end
-        context 'When only false passed' do
-          it_behaves_like 'failed creation', false: Faker::Hipster.word
-        end
-        context 'When true and false not passed' do
-          it_behaves_like 'failed creation', {}
-        end
-      end
     end
 
     describe '#path' do
       before do
         @original_path = '/'
         @route = build(:route, path: @original_path)
-        @condition_name = Faker::Hipster.word
-        @condition_params = { true: Faker::Hipster.word, false: Faker::Hipster.word }
-        @route.boolean(@condition_name, @condition_params)
+        @param_name = Faker::Hipster.word
+        @param_options = { true: Faker::Hipster.word, false: Faker::Hipster.word }
+        @route.boolean(@param_name, @param_options)
       end
       it 'should add conditions to path' do
-        expect(@route.path).to eq(@original_path + ":friendly_routes_#{@condition_name}")
+        expect(@route.path).to eq(@original_path + ":friendly_routes_#{@param_name}")
+      end
+    end
+
+    describe '#constraints' do
+      let(:subject) { @route.constraints }
+      before do
+        @route = build(:route, boolean_params: 2)
+        @params = @route.params
+      end
+      it { is_expected.to be_a(Hash) }
+      it 'should have all params' do
+        expect(subject.size).to eq(2)
       end
     end
   end

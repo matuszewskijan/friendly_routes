@@ -30,6 +30,9 @@ module FriendlyRoutes
     end
 
     def constraints
+      @params.map do |param|
+        [prefixed_param_name(param).to_sym, param.constraints]
+      end.to_h
     end
 
     private

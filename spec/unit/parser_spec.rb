@@ -1,10 +1,10 @@
-require 'rails_helper'
+require 'spec_helper'
 
 module FriendlyRoutes
   describe Parser do
     describe 'Parsing boolean params' do
       before do
-        @route = build(:route, boolean_conditions: 1)
+        @route = build(:route, boolean_params: 1)
         @param = @route.params.first
         @params = {
           friendly_route: @route

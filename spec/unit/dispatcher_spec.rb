@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 module FriendlyRoutes
   describe Dispatcher do
@@ -15,7 +15,8 @@ module FriendlyRoutes
           controller: @controller,
           action: @action,
           friendly_route: @route,
-          as: @route.as
+          as: @route.as,
+          constraints: @route.constraints
         )
         expect(subject.friendly_url_for(@route))
       end
