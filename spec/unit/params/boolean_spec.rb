@@ -26,12 +26,29 @@ module FriendlyRoutes
       end
       describe '#constraints' do
         before do
-          @true = Faker::Hipster.word
-          @false = Faker::Hipster.word
+          @true = Faker::Lorem.word
+          @false = Faker::Lorem.word
           @subject = Boolean.new(:name, true: @true, false: @false)
         end
         it 'should return Regexp with true or false value' do
           expect(@subject.constraints).to eq(/#{@true}|#{@false}/)
+        end
+      end
+      describe '#parse' do
+        before do
+          @true = Faker::Lorem.word
+          @false = Faker::Lorem.word
+          @subject = Boolean.new(:name, true: @true, false: @false)
+        end
+        context 'When value is true' do
+          it 'should return true' do
+            expect(@subject.parse(@subject.true)).to be true
+          end
+        end
+        context 'When value is false' do
+          it 'should return false' do
+            expect(@subject.parse(@subject.false)).to be false
+          end
         end
       end
     end

@@ -9,16 +9,16 @@ module FriendlyRoutes
 
     def call
       @route.params.each do |param|
-        send(param.type, param)
+        parse(param)
       end
     end
 
     private
 
-    def boolean(param)
+    def parse(param)
       value = @params[@route.prefixed_param_name(param)]
       return unless value
-      @params[param.name] = value == param.true
+      @params[param.name] = param.parse(value)
     end
   end
 end

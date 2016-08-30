@@ -16,6 +16,10 @@ module FriendlyRoutes
         Regexp.new "#{@true}|#{@false}"
       end
 
+      def parse(value)
+        value == @true
+      end
+
       private
 
       def check_options(options)
