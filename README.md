@@ -22,8 +22,35 @@ Or install it yourself as:
 ```bash
 $ gem install friendly_routes
 ```
+## Usage example
 
-## Routes configuration
+```ruby
+# config/routes.rb
+dummies_route = FriendlyRoutes::Route.new(:get, '/', controller: :dummies, action: :index)
+dummies_route.boolean(:free, true: :free, false: :paid)
+dummies_route.collection(:category_id, Category, :title)
+friendly_url_for dummies_route
+
+# app/controllers/dummies_controller.rb
+class DummiesController < ApplicationController
+  before_action :parse_friendly_routes, only: [:index]
+  def index
+  end
+end
+
+#  Categories:
+#  <Category id: 1, title: "lorem">
+#  <Category id: 2, title: "ipsum">
+
+
+# GET "/free/lorem" - { free: true, category_id: 1}
+# GET "/free/ipsum" - { free: true, category_id: 2}
+# GET "/paid/lorem" - { free: false, category_id: 1}
+# GET "/paid/ipsum" - { free: false, category_id: 2}
+```
+
+## Configuration
+### Routes
 
 1. Create new route, pass **method**, **path**, **controller name**, and **action** to it.
 ```ruby
@@ -43,6 +70,12 @@ dummies_route.collection(:categories, Category.where(active: true), :title)
 3. Initialize route wih `friendly_url_for`
 ```ruby
 friendly_url_for dummies_route
+```
+
+### Controllers
+Simply call `parse_friendly_routes` before controller action to parse params.
+```ruby
+before_action :parse_friendly_routes, only: [:index]
 ```
 
 ## Contributing
