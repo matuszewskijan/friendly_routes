@@ -4,10 +4,13 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
+require 'factory_girl_rails'
+require 'database_cleaner'
+
 ActiveRecord::Migration.maintain_test_schema!
 
-FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
-FactoryGirl.find_definitions
+# FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+# FactoryGirl.find_definitions
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
