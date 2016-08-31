@@ -42,12 +42,12 @@ module FriendlyRoutes
         end
         context 'When value is true' do
           it 'should return true' do
-            expect(@subject.parse(@subject.true)).to be true
+            expect(@subject.parse(@true)).to be true
           end
         end
         context 'When value is false' do
           it 'should return false' do
-            expect(@subject.parse(@subject.false)).to be false
+            expect(@subject.parse(@false)).to be false
           end
         end
       end
