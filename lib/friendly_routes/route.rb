@@ -17,6 +17,10 @@ module FriendlyRoutes
       @params.push(Params::Boolean.new(name, params))
     end
 
+    def collection(name, collection, key_attr)
+      @params.push(Params::Collection.new(name, collection, key_attr))
+    end
+
     def path
       @original_path + mapped_params
     end

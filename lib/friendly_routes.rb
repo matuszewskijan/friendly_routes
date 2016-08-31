@@ -6,6 +6,7 @@ require 'friendly_routes/parser'
 require 'friendly_routes/route'
 require 'friendly_routes/params/base'
 require 'friendly_routes/params/boolean'
+require 'friendly_routes/params/collection'
 
 module FriendlyRoutes
 end

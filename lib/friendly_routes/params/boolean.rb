@@ -6,7 +6,7 @@ module FriendlyRoutes
       attr_accessor :true, :false
 
       def initialize(name, options)
-        check_options(options)
+        check_params(options)
         super(:boolean, name)
         @true = options[:true]
         @false = options[:false]
@@ -22,9 +22,9 @@ module FriendlyRoutes
 
       private
 
-      def check_options(options)
-        conditions_passed = options.is_a?(Hash) && options[:true] && options[:false]
-        raise ArgumentError, 'True and false options is required' unless conditions_passed
+      def check_params(options)
+        valid = options.is_a?(Hash) && options[:true] && options[:false]
+        raise ArgumentError, 'True and false options is required' unless valid
       end
     end
   end
