@@ -12,11 +12,11 @@ module FriendlyRoutes
               end.to raise_error(ArgumentError)
             end
           end
-          context 'When only collection not passed' do
+          context 'When collection not passed' do
             it_behaves_like 'failed creation', nil
           end
-          context 'When only collection not respond to mehod' do
-            it_behaves_like 'failed creation', Class.new, :undefined_method
+          context 'When method not passed' do
+            it_behaves_like 'failed creation', Class.new, nil
           end
         end
       end
