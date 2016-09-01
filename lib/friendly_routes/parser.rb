@@ -8,6 +8,7 @@ module FriendlyRoutes
     end
 
     def call
+      return unless @route
       @route.params.each do |param|
         parse(param)
       end

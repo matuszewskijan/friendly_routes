@@ -41,9 +41,11 @@ module FriendlyRoutes
           @param = double('Param')
         end
         it 'should add boolean param to params array' do
-          expect(Params::Boolean).to receive(:new).with(@condition_name, @condition_params) do
-            @param
-          end
+          expect(Params::Boolean).to(
+            receive(:new).with(@condition_name, @condition_params, optional: true) do
+              @param
+            end
+          )
           @route.boolean(@condition_name, @condition_params)
           expect(@route.params).to include(@param)
         end
@@ -56,10 +58,22 @@ module FriendlyRoutes
         @route = build(:route, path: @original_path)
         @param_name = Faker::Hipster.word
         @param_options = { true: Faker::Hipster.word, false: Faker::Hipster.word }
-        @route.boolean(@param_name, @param_options)
       end
-      it 'should add conditions to path' do
-        expect(@route.path).to eq(@original_path + ":friendly_routes_#{@param_name}")
+      context 'required param' do
+        before do
+          @route.boolean(@param_name, @param_options, optional: false)
+        end
+        it 'should add required condition to path' do
+          expect(@route.path).to eq(@original_path + ":friendly_routes_#{@param_name}")
+        end
+      end
+      context 'optional param' do
+        before do
+          @route.boolean(@param_name, @param_options, optional: true)
+        end
+        it 'should add optional condition to path' do
+          expect(@route.path).to eq(@original_path + "(:friendly_routes_#{@param_name})")
+        end
       end
     end
 

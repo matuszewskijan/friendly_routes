@@ -13,12 +13,12 @@ module FriendlyRoutes
       @prefix = prefix
     end
 
-    def boolean(name, params)
-      @params.push(Params::Boolean.new(name, params))
+    def boolean(name, params, optional: true)
+      @params.push(Params::Boolean.new(name, params, optional: optional))
     end
 
-    def collection(name, collection, key_attr)
-      @params.push(Params::Collection.new(name, collection, key_attr))
+    def collection(name, collection, key_attr, optional: true)
+      @params.push(Params::Collection.new(name, collection, key_attr, optional: optional))
     end
 
     def path
@@ -43,7 +43,8 @@ module FriendlyRoutes
 
     def mapped_params
       mapped = @params.map do |param|
-        ':' + prefixed_param_name(param)
+        name = prefixed_param_name(param)
+        param.optional? ? "(:#{name})" : ":#{name}"
       end
       mapped.join('/')
     end

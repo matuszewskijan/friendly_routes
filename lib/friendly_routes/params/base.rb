@@ -5,9 +5,14 @@ module FriendlyRoutes
     class Base
       attr_accessor :type, :name
 
-      def initialize(type, name)
+      def initialize(type, name, optional)
         @type = type
         @name = name
+        @optional = optional
+      end
+
+      def optional?
+        @optional == true
       end
 
       def constraints

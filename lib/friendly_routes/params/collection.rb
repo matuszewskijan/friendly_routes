@@ -5,15 +5,15 @@ module FriendlyRoutes
     class Collection < Base
       attr_accessor :collection, :key_attr
 
-      def initialize(name, collection, key_attr)
-        super(:collection, name)
+      def initialize(name, collection, key_attr, optional: true)
+        super(:collection, name, optional)
         @collection = collection
         @key_attr = key_attr
         check_params
       end
 
       def constraints
-        Regexp.new @collection.all.map(&@key_attr).join('|')
+        Regexp.new @collection.all.map(&@key_attr).map(&:downcase).join('|')
       end
 
       def parse(value)
@@ -23,8 +23,8 @@ module FriendlyRoutes
       private
 
       def check_params
-        unless @collection.try(:has_attribute?, @key_attr)
-          raise ArgumentError, "Collection not passed, or doesn't have passed attribute"
+        if @collection.nil? || @key_attr.nil?
+          raise ArgumentError, 'Collection or key attribute not passed'
         end
       end
     end

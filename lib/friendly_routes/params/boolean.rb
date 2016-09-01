@@ -5,9 +5,9 @@ module FriendlyRoutes
     class Boolean < Base
       attr_accessor :true, :false
 
-      def initialize(name, options)
+      def initialize(name, options, optional: true)
         check_params(options)
-        super(:boolean, name)
+        super(:boolean, name, optional)
         @true = options[:true]
         @false = options[:false]
       end
