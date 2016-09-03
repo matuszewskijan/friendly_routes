@@ -5,6 +5,7 @@ module FriendlyRoutes
     describe '#friendly_url_for' do
       let(:subject) { (Class.new { include Dispatcher }).new }
       let(:method) { [:get, :post, :put, :delete].sample }
+      let(:route_name) { Faker::Lorem.word }
       before do
         @controller = 'items'
         @action = 'index'
@@ -16,10 +17,10 @@ module FriendlyRoutes
           controller: @controller,
           action: @action,
           friendly_route: @route,
-          as: @route.as,
+          as: @route_name,
           constraints: @route.constraints
         )
-        expect(subject.friendly_url_for(@route, method))
+        expect(subject.friendly_url_for(@route, method, as: @route_name))
       end
     end
   end

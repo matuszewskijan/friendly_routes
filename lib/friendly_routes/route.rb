@@ -15,11 +15,7 @@ module FriendlyRoutes
     def path
       @original_path + FriendlyRoutes::PrefixedParams.new(@params, @prefix).call
     end
-
-    def as
-      "#{@prefix}_#{@controller}_#{@action}"
-    end
-
+    
     def constraints
       FriendlyRoutes::Constraints.new(dynamic_params, @prefix).call
     end

@@ -29,15 +29,15 @@ $ gem install friendly_routes
 free = FriendlyRoutes::Params::Boolean.new(:free, true: :free, false: :paid)
 category = FriendlyRoutes::Params::Collection.new(:category_id, Category, :title)
 
-dummies_route = FriendlyRoutes::Route.new(:get, '/', controller: :dummies, action: :index)
+dummies_route = FriendlyRoutes::Route.new('/', controller: :dummies, action: :index)
 dummies_route.params = [free, category]
 
-friendly_url_for dummies_route # '/:free/:category'
+friendly_url_for dummies_route, :get # '/:free/:category'
 
 second_dummies_route = FriendlyRoutes::Route.new(:get, '/', controller: :dummies, action: :index)
 dummies_route.params = [free, 'categories', category]
 
-friendly_url_for dummies_route # '/:free/categories/:category'
+friendly_url_for dummies_route, :get # '/:free/categories/:category'
 
 # app/controllers/dummies_controller.rb
 class DummiesController < ApplicationController
