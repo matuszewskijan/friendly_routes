@@ -27,8 +27,9 @@ $ gem install friendly_routes
 ```ruby
 # config/routes.rb
 dummies_route = FriendlyRoutes::Route.new(:get, '/', controller: :dummies, action: :index)
-dummies_route.boolean(:free, true: :free, false: :paid)
-dummies_route.collection(:category_id, Category, :title)
+free = FriendlyRoutes::Params::Boolean.new(:free, true: :free, false: :paid)
+category = FriendlyRoutes::Params::Collection.new(:category_id, Category, :title)
+dummies_route.params = [free, category]
 friendly_url_for dummies_route
 
 # app/controllers/dummies_controller.rb
@@ -54,22 +55,22 @@ end
 
 1. Create new route, pass **method**, **path**, **controller name**, and **action** to it.
 ```ruby
-dummies_route = FriendlyRoutes::Route.new(:get, '/', controller: :dummies, action: :index)
+dummies_route = FriendlyRoutes::Route.new('/', controller: :dummies, action: :index)
 ```
 2. Create route params. *Note: params in route will be accepted in creation order*
 
 Boolean param, pass **name**, and hash with **true** and **false** keys.
 ```ruby
-dummies_route.boolean(:discount, true: :true_condition, false: :false_condition)
+FriendlyRoutes::Params::Boolean.new(:discount, true: :true_condition, false: :false_condition)
 ```
 
 collection param, pass **name**, **collection**, and **attribute** keys.
 ```ruby
-dummies_route.collection(:categories, Category.where(active: true), :title)
+FriendlyRoutes::Params::Collection.new(:categories, Category.where(active: true), :title)
 ```
-3. Initialize route wih `friendly_url_for`
+4. Initialize route wih `friendly_url_for`
 ```ruby
-friendly_url_for dummies_route
+friendly_url_for dummies_route, :get
 ```
 
 ### Controllers

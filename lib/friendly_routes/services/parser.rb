@@ -17,9 +17,11 @@ module FriendlyRoutes
     private
 
     def parse(param)
-      value = @params[@route.prefixed_param_name(param)]
+      prefixed_name = FriendlyRoutes::PrefixedParam.new(param.name, @route.prefix).call
+      value = @params[prefixed_name]
       return unless value
       @params[param.name] = param.parse(value)
+      @params.delete(prefixed_name)
     end
   end
 end

@@ -15,7 +15,7 @@ describe DummiesController do
         before do
           @route = build(:route, boolean_params: 1)
           @param = @route.params.first
-          @prefixed_name = @route.prefixed_param_name(@param)
+          @prefixed_name = FriendlyRoutes::PrefixedParam.new(@param.name, @route.prefix).call
           @params = {
             friendly_route: @route
           }
@@ -46,7 +46,7 @@ describe DummiesController do
         before do
           @route = build(:route, :with_category)
           @param = @route.params.first
-          @prefixed_name = @route.prefixed_param_name(@param)
+          @prefixed_name = FriendlyRoutes::PrefixedParam.new(@param.name, @route.prefix).call
           @params = {
             friendly_route: @route
           }

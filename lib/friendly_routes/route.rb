@@ -4,8 +4,7 @@ module FriendlyRoutes
   class Route
     attr_accessor :method, :controller, :action, :params, :prefix
 
-    def initialize(method, path, controller: nil, action: nil, prefix: 'friendly_routes')
-      @method = method
+    def initialize(path, controller: nil, action: nil, prefix: 'friendly_routes')
       @original_path = path
       @controller = controller
       @action = action
@@ -13,20 +12,8 @@ module FriendlyRoutes
       @prefix = prefix
     end
 
-    def boolean(name, params, optional: true)
-      @params.push(Params::Boolean.new(name, params, optional: optional))
-    end
-
-    def collection(name, collection, key_attr, optional: true)
-      @params.push(Params::Collection.new(name, collection, key_attr, optional: optional))
-    end
-
     def path
-      @original_path + mapped_params
-    end
-
-    def prefixed_param_name(param)
-      "#{@prefix}_#{param.name}"
+      @original_path + FriendlyRoutes::PrefixedParams.new(@params, @prefix).call
     end
 
     def as
@@ -34,19 +21,11 @@ module FriendlyRoutes
     end
 
     def constraints
-      @params.map do |param|
-        [prefixed_param_name(param).to_sym, param.constraints]
-      end.to_h
+      FriendlyRoutes::Constraints.new(dynamic_params, @prefix).call
     end
 
-    private
-
-    def mapped_params
-      mapped = @params.map do |param|
-        name = prefixed_param_name(param)
-        param.optional? ? "(:#{name})" : ":#{name}"
-      end
-      mapped.join('/')
+    def dynamic_params
+      @params.select { |param| param.is_a?(FriendlyRoutes::Params::Base) }
     end
   end
 end

@@ -13,7 +13,7 @@ module FriendlyRoutes
       end
 
       def constraints
-        Regexp.new @collection.all.map(&@key_attr).map(&:downcase).join('|')
+        Regexp.new @collection.all.map(&@key_attr).compact.map(&:downcase).join('|')
       end
 
       def parse(value)

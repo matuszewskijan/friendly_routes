@@ -7,22 +7,18 @@ FactoryGirl.define do
     trait :with_category do
       after(:build) do |route, evaluator|
         create_list(:category, evaluator.collection_items)
-        route.collection(Faker::Lorem.word, Category, :title)
+        route.params.push(build(:collection))
       end
     end
 
-    http_method :get
     path '/'
     controller Faker::Hipster.word.pluralize
     action Faker::Hacker.verb
 
-    initialize_with { new(http_method, path, controller: controller, action: action) }
+    initialize_with { new(path, controller: controller, action: action) }
 
     after(:build) do |route, evaluator|
-      evaluator.boolean_params.times do
-        statements = { true: Faker::Lorem.word, false: Faker::Lorem.word }
-        route.boolean(Faker::Lorem.word, statements)
-      end
+      route.params.concat build_list(:boolean, evaluator.boolean_params)
     end
   end
 end

@@ -12,6 +12,7 @@ require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
 require "friendly_routes"
+require "pry"
 
 module TestApp
   class Application < Rails::Application
@@ -20,4 +21,3 @@ module TestApp
     # -- all .rb files in that directory are automatically loaded.
   end
 end
-

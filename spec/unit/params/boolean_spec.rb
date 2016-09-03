@@ -26,8 +26,7 @@ module FriendlyRoutes
       end
       describe '#constraints' do
         before do
-          @true = Faker::Lorem.word
-          @false = Faker::Lorem.word
+          @true, @false = Faker::Lorem.words(2)
           @subject = Boolean.new(:name, true: @true, false: @false)
         end
         it 'should return Regexp with true or false value' do
@@ -36,8 +35,7 @@ module FriendlyRoutes
       end
       describe '#parse' do
         before do
-          @true = Faker::Lorem.word
-          @false = Faker::Lorem.word
+          @true, @false = Faker::Lorem.words(2)
           @subject = Boolean.new(:name, true: @true, false: @false)
         end
         context 'When value is true' do

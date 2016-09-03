@@ -2,8 +2,12 @@ require 'spec_helper'
 
 module FriendlyRoutes
   describe Parser do
-    def set_param(param, method)
-      @params[@route.prefixed_param_name(param)] = param.public_send(method)
+    def set_param(param, attribute)
+      @params[prefixed_name(param)] = param.public_send(attribute)
+    end
+
+    def prefixed_name(param)
+      FriendlyRoutes::PrefixedParam.new(param.name, @route.prefix).call
     end
     before do
       @route = build(:route, boolean_params: 2)
@@ -15,10 +19,17 @@ module FriendlyRoutes
       Parser.new(@params).call
     end
 
-    it 'should add update params with correct values' do
+    it 'should add params with correct values' do
       expect(@params).to include(
         @route.params.first.name => true, @route.params.last.name => false
       )
+    end
+
+    it 'should delete friendly_route params' do
+      names = @route.params.map do |param|
+        prefixed_name(param)
+      end
+      expect(@params).not_to include(names)
     end
   end
 end
