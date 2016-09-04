@@ -60,6 +60,33 @@ describe DummiesController do
           end
         end
       end
+
+      describe 'hash' do
+        def stub_params(params)
+          allow(controller).to receive(:params) { params }
+        end
+        before do
+          @route = build(:route)
+          @param = FriendlyRoutes::Params::HashParams.new(
+            :rooms,
+            'one-roomed' => 1,
+            'two-roomed' => 2
+          )
+          @route.params.push(@param)
+          @prefixed_name = FriendlyRoutes::PrefixedParam.new(@param.name, @route.prefix).call
+          @params = {
+            friendly_route: @route
+          }
+        end
+
+        it 'should set id to params' do
+          @param.hash.each do |key, val|
+            stub_params @params.merge(@prefixed_name => key)
+            get :index
+            expect(controller.params[@param.name]).to eq(val)
+          end
+        end
+      end
     end
   end
 end
