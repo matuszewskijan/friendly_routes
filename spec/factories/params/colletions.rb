@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 FactoryGirl.define do
-  factory :collection, class: FriendlyRoutes::Params::Collection do
+  factory :collection, class: FriendlyRoutes::Params::CollectionParams do
     name { Faker::Lorem.word }
     collection { Category }
     attribute { :title }

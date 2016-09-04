@@ -6,7 +6,7 @@ describe FriendlyRoutes::PrefixedParams do
     @param_options = { true: Faker::Hipster.word, false: Faker::Hipster.word }
   end
   def boolean(name, options, optional: false)
-    FriendlyRoutes::Params::Boolean.new(name, options, optional: optional)
+    FriendlyRoutes::Params::BooleanParams.new(name, options, optional: optional)
   end
   context 'required param' do
     before do

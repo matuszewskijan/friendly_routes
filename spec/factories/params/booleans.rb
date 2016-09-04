@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 FactoryGirl.define do
-  factory :boolean, class: FriendlyRoutes::Params::Boolean do
+  factory :boolean, class: FriendlyRoutes::Params::BooleanParams do
     statements { Faker::Lorem.words(2) }
 
     name { Faker::Lorem.word }

@@ -2,12 +2,12 @@ require 'spec_helper'
 
 module FriendlyRoutes
   module Params
-    describe Boolean do
+    describe BooleanParams do
       describe '#initialize' do
         context 'When correct params not passed' do
           shared_examples 'failed creation' do |params|
             it 'should raise ArgumentError' do
-              expect { Boolean.new(Faker::Hipster.word, params) }.to raise_error(ArgumentError)
+              expect { BooleanParams.new(Faker::Hipster.word, params) }.to raise_error(ArgumentError)
             end
           end
           context 'When only true passed' do
@@ -27,7 +27,7 @@ module FriendlyRoutes
       describe '#constraints' do
         before do
           @true, @false = Faker::Lorem.words(2)
-          @subject = Boolean.new(:name, true: @true, false: @false)
+          @subject = BooleanParams.new(:name, true: @true, false: @false)
         end
         it 'should return Regexp with true or false value' do
           expect(@subject.constraints).to eq(/#{@true}|#{@false}/)
@@ -36,7 +36,7 @@ module FriendlyRoutes
       describe '#parse' do
         before do
           @true, @false = Faker::Lorem.words(2)
-          @subject = Boolean.new(:name, true: @true, false: @false)
+          @subject = BooleanParams.new(:name, true: @true, false: @false)
         end
         context 'When value is true' do
           it 'should return true' do

@@ -2,7 +2,7 @@
 
 module FriendlyRoutes
   module Params
-    class Collection < Base
+    class CollectionParams < Base
       attr_accessor :collection, :key_attr
 
       def initialize(name, collection, key_attr, optional: true)

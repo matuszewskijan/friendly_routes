@@ -2,7 +2,7 @@
 
 module FriendlyRoutes
   module Params
-    class Boolean < Base
+    class BooleanParams < Base
       attr_accessor :true, :false
 
       def initialize(name, options, optional: true)
