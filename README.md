@@ -26,8 +26,8 @@ $ gem install friendly_routes
 
 ```ruby
 # config/routes.rb
-free = FriendlyRoutes::Params::Boolean.new(:free, true: :free, false: :paid)
-category = FriendlyRoutes::Params::Collection.new(:category_id, Category, :title)
+free = FriendlyRoutes::Params::BooleanParams.new(:free, true: :free, false: :paid)
+category = FriendlyRoutes::Params::CollectionParams.new(:category_id, Category, :title)
 
 dummies_route = FriendlyRoutes::Route.new('/', controller: :dummies, action: :index)
 dummies_route.params = [free, category]
@@ -68,12 +68,17 @@ dummies_route = FriendlyRoutes::Route.new('/', controller: :dummies, action: :in
 
 Boolean param, pass **name**, and hash with **true** and **false** keys.
 ```ruby
-FriendlyRoutes::Params::Boolean.new(:discount, true: :true_condition, false: :false_condition)
+FriendlyRoutes::Params::BooleanParams.new(:discount, true: :true_condition, false: :false_condition)
 ```
 
 collection param, pass **name**, **collection**, and **attribute** keys.
 ```ruby
-FriendlyRoutes::Params::Collection.new(:categories, Category.where(active: true), :title)
+FriendlyRoutes::Params::CollectionParams.new(:categories, Category.where(active: true), :title)
+```
+
+hash param, pass **name**, **collection**, and **attribute** keys.
+```ruby
+FriendlyRoutes::Params::HashParams.new(:rooms, 'one-roomed' => 1, 'two-roomed' => 2)
 ```
 4. Initialize route wih `friendly_url_for`
 ```ruby
