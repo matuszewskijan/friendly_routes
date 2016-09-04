@@ -9,7 +9,7 @@ module FriendlyRoutes
 
     def call
       return unless @route
-      @route.params.each do |param|
+      @route.dynamic_params.each do |param|
         parse(param)
       end
     end

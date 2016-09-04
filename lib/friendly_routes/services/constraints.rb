@@ -9,7 +9,7 @@ module FriendlyRoutes
 
     def call
       @params.map do |param|
-        [FriendlyRoutes::PrefixedParam.new(param, @prefix).call.to_sym, param.constraints]
+        [FriendlyRoutes::PrefixedParam.new(param.name, @prefix).call.to_sym, param.constraints]
       end.to_h
     end
   end
