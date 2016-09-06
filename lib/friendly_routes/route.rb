@@ -2,12 +2,10 @@
 
 module FriendlyRoutes
   class Route
-    attr_accessor :method, :controller, :action, :params, :prefix
+    attr_accessor :method, :params, :prefix
 
-    def initialize(path, controller: nil, action: nil, prefix: 'friendly_routes')
+    def initialize(path, prefix: 'friendly_routes')
       @original_path = path
-      @controller = controller
-      @action = action
       @params = []
       @prefix = prefix
     end

@@ -8,7 +8,7 @@ module FriendlyRoutes
     end
 
     def call
-      "#{@prefix}_#{@param}"
+      @prefix ? "#{@prefix}_#{@param}" : @param
     end
   end
 end

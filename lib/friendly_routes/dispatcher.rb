@@ -2,12 +2,12 @@
 
 module FriendlyRoutes
   module Dispatcher
-    def friendly_url_for(route, method, as: '')
+    def friendly_url_for(route, method, as: '', controller: '', action: '')
       public_send(
         method,
         route.path,
-        controller: route.controller,
-        action: route.action,
+        controller: controller,
+        action: action,
         friendly_route: route,
         constraints: route.constraints,
         as: as

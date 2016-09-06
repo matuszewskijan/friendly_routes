@@ -21,7 +21,7 @@ module FriendlyRoutes
       value = @params[prefixed_name]
       return unless value
       @params[param.name] = param.parse(value)
-      @params.delete(prefixed_name)
+      @params.delete(prefixed_name) unless param.name == prefixed_name
     end
   end
 end
