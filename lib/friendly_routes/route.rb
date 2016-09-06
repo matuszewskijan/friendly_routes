@@ -4,8 +4,8 @@ module FriendlyRoutes
   class Route
     attr_accessor :method, :params, :prefix
 
-    def initialize(prefix: 'friendly_routes')
-      @params = []
+    def initialize(params = [], prefix: 'friendly_routes')
+      @params = params
       @prefix = prefix
     end
 

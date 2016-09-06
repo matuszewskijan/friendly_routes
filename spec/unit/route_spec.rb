@@ -3,13 +3,18 @@ require 'spec_helper'
 module FriendlyRoutes
   describe Route do
     describe '#initialize' do
+      subject { Route.new(@params, prefix: @prefix) }
       before do
         @prefix = Faker::Lorem.word
         @params = []
       end
 
       it 'shoud set prefix instance variable' do
-        expect(Route.new(prefix: @prefix).prefix).to eq(@prefix)
+        expect(subject.prefix).to eq(@prefix)
+      end
+
+      it 'shoud set params instance variable' do
+        expect(subject.params).to eq(@params)
       end
     end
 
