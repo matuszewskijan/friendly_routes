@@ -10,11 +10,10 @@ describe FriendlyRoutes::Constraints do
         @params = [@param]
       end
       it { is_expected.to eq("#{@prefix}_#{@param.name}".to_sym => @param.constraints) }
-
     end
     context 'multiple params' do
       before do
-        @params = build_list(:boolean, 2)
+        @params = Faker::Lorem.words(2).map { |word| build(:boolean, name: word) }
       end
       it { is_expected.to be_a(Hash) }
       it 'should have all params' do

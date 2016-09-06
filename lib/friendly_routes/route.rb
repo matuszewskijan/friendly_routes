@@ -4,14 +4,13 @@ module FriendlyRoutes
   class Route
     attr_accessor :method, :params, :prefix
 
-    def initialize(path, prefix: 'friendly_routes')
-      @original_path = path
+    def initialize(prefix: 'friendly_routes')
       @params = []
       @prefix = prefix
     end
 
     def path
-      @original_path + FriendlyRoutes::PrefixedParams.new(@params, @prefix).call
+      FriendlyRoutes::PrefixedParams.new(@params, @prefix).call
     end
 
     def constraints

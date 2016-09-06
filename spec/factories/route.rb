@@ -11,12 +11,6 @@ FactoryGirl.define do
       end
     end
 
-    path '/'
-    controller Faker::Hipster.word.pluralize
-    action Faker::Hacker.verb
-
-    initialize_with { new(path, controller: controller, action: action) }
-
     after(:build) do |route, evaluator|
       route.params.concat build_list(:boolean, evaluator.boolean_params)
     end
