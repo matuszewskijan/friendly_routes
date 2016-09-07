@@ -10,7 +10,7 @@ module FriendlyRoutes
     end
 
     def path
-      FriendlyRoutes::PrefixedParams.new(@params, @prefix).call
+      FriendlyRoutes::PrefixedParams.new(@params, @prefix).to_s
     end
 
     def constraints
