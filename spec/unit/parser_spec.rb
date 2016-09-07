@@ -16,20 +16,33 @@ module FriendlyRoutes
       }
       set_param(@route.params.first, :true)
       set_param(@route.params.last, :false)
-      Parser.new(@params).call
     end
 
     it 'should add params with correct values' do
+      Parser.new(@params, false).call
       expect(@params).to include(
         @route.params.first.name => true, @route.params.last.name => false
       )
     end
 
-    it 'should delete friendly_route params' do
-      names = @route.params.map do |param|
-        prefixed_name(param)
+    context 'when keep_all == true' do
+      it 'should not delete friendly_route params' do
+        Parser.new(@params, true).call
+        names = @route.params.map do |param|
+          prefixed_name(param)
+        end
+        expect(@params.keys).to include(*names)
       end
-      expect(@params).not_to include(names)
+    end
+
+    context 'when keep_all == false' do
+      it 'should delete friendly_route params' do
+        Parser.new(@params, false).call
+        names = @route.params.map do |param|
+          prefixed_name(param)
+        end
+        expect(@params.keys).not_to include(*names)
+      end
     end
   end
 end
