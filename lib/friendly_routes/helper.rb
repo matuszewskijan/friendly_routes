@@ -2,8 +2,8 @@
 
 module FriendlyRoutes
   module Helper
-    def parse_friendly_routes
-      FriendlyRoutes::Parser.new(params).call
+    def parse_friendly_routes(keep_all: false)
+      FriendlyRoutes::Parser.new(params, keep_all).call
     end
   end
 end

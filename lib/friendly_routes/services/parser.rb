@@ -2,8 +2,9 @@
 
 module FriendlyRoutes
   class Parser
-    def initialize(params)
+    def initialize(params, keep_all)
       @params = params
+      @keep_all = keep_all
       @route = @params[:friendly_route]
     end
 
@@ -21,7 +22,7 @@ module FriendlyRoutes
       value = @params[prefixed_name]
       return unless value
       @params[param.name] = param.parse(value)
-      @params.delete(prefixed_name) unless param.name == prefixed_name
+      @params.delete(prefixed_name) unless @keep_all || param.name == prefixed_name
     end
   end
 end
