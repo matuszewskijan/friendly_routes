@@ -2,6 +2,8 @@
 
 module FriendlyRoutes
   module Params
+    # @attr [String] true value for matching true
+    # @attr [String] false value for matching false
     class BooleanParams < Base
       attr_accessor :true, :false
 
@@ -16,8 +18,18 @@ module FriendlyRoutes
         Regexp.new "#{@true}|#{@false}"
       end
 
+      # (see Base#parse)
+      # @param [String] value request value
+      # @return [Boolean]
       def parse(value)
         value == @true
+      end
+
+      # (see Base#compose)
+      # @param [Boolean]
+      # @return [String] request value
+      def compose(value)
+        value ? @true : @false
       end
 
       private

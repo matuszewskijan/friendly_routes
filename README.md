@@ -22,7 +22,8 @@ Or install it yourself as:
 ```bash
 $ gem install friendly_routes
 ```
-## Usage example
+## Examples
+### Routes.rb example
 
 ```ruby
 # config/routes.rb
@@ -37,57 +38,31 @@ second_dummies_route = FriendlyRoutes::Route.new([free, 'categories', category],
 
 friendly_url_for dummies_route, :get, '/' # '/:free/categories/:category'
 friendly_url_for dummies_route, :get, '/hello/' # '/hello/:free/categories/:category'
+```
 
+### Controller example
+
+```ruby
 # app/controllers/dummies_controller.rb
 class DummiesController < ApplicationController
   before_action :parse_friendly_routes, only: [:index]
   def index
   end
 end
-
-#  Categories:
-#  <Category id: 1, title: "lorem">
-#  <Category id: 2, title: "ipsum">
-
-
-# GET "/free/lorem" - { free: true, category_id: 1}
-# GET "/free/ipsum" - { free: true, category_id: 2}
-# GET "/paid/lorem" - { free: false, category_id: 1}
-# GET "/paid/ipsum" - { free: false, category_id: 2}
 ```
 
-## Configuration
-### Routes
+### Request result example
 
-1. Create new route, pass **method**, **path**, **controller name**, and **action** to it.
-```ruby
-dummies_route = FriendlyRoutes::Route.new('/', controller: :dummies, action: :index)
 ```
-2. Create route params. *Note: params in route will be accepted in creation order*
+ Categories:
+ <Category id: 1, title: "lorem">
+ <Category id: 2, title: "ipsum">
 
-Boolean param, pass **name**, and hash with **true** and **false** keys.
-```ruby
-FriendlyRoutes::Params::BooleanParams.new(:discount, true: :true_condition, false: :false_condition)
-```
 
-collection param, pass **name**, **collection**, and **attribute** keys.
-```ruby
-FriendlyRoutes::Params::CollectionParams.new(:categories, Category.where(active: true), :title)
-```
-
-hash param, pass **name**, **collection**, and **attribute** keys.
-```ruby
-FriendlyRoutes::Params::HashParams.new(:rooms, 'one-roomed' => 1, 'two-roomed' => 2)
-```
-4. Initialize route wih `friendly_url_for`
-```ruby
-friendly_url_for dummies_route, :get
-```
-
-### Controllers
-Simply call `parse_friendly_routes` before controller action to parse params.
-```ruby
-before_action :parse_friendly_routes, only: [:index]
+GET "/free/lorem" - { free: true, category_id: 1}
+GET "/free/ipsum" - { free: true, category_id: 2}
+GET "/paid/lorem" - { free: false, category_id: 1}
+GET "/paid/ipsum" - { free: false, category_id: 2}
 ```
 
 ## Contributing

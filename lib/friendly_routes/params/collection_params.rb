@@ -2,6 +2,10 @@
 
 module FriendlyRoutes
   module Params
+    # Created to work with ActiveRecord collection
+    #
+    # @attr [Object] collection Instance of ActiveRecord collection
+    # @attr [Symbol, String] key_attr name of attribute for matching
     class CollectionParams < Base
       attr_accessor :collection, :key_attr
 
@@ -16,8 +20,18 @@ module FriendlyRoutes
         Regexp.new @collection.all.map(&@key_attr).compact.map(&:downcase).join('|')
       end
 
+      # (see Base#parse)
+      # @param [String] value value of item key attr
+      # @return [Integer, nil] item id or nil if item not found
       def parse(value)
         @collection.find_by(@key_attr => value).try(:id)
+      end
+
+      # (see Base#compose)
+      # @param [Integer] id id of collection member
+      # @return [String] member key attr
+      def compose(id)
+        @collection.find(id)[@key_attr]
       end
 
       private

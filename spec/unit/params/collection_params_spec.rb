@@ -42,6 +42,18 @@ module FriendlyRoutes
           end
         end
       end
+
+      describe '#compose' do
+        before do
+          @categories = create_list(:category, 3)
+          @subject = CollectionParams.new(:category, Category, :title)
+        end
+        it 'should return title of passed item for any item' do
+          @categories.each do |category|
+            expect(@subject.compose(category.id)).to eq(category.title)
+          end
+        end
+      end
     end
   end
 end

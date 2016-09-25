@@ -2,6 +2,7 @@
 
 module FriendlyRoutes
   module Params
+    # @attr [Hash] hash *keys* are values for matching and *values* is needed values
     class HashParams < Base
       attr_accessor :hash
 
@@ -15,8 +16,18 @@ module FriendlyRoutes
         Regexp.new @hash.keys.join('|')
       end
 
+      # (see Base#parse)
+      # @param [String, Symbol] value hash key
+      # @return [Object] hash value
       def parse(value)
         @hash[value]
+      end
+
+      # (see Base#compose)
+      # @param [Object] value hash value
+      # @return [String, Symbol] hash key
+      def compose(value)
+        @hash.key(value)
       end
 
       private

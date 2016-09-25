@@ -49,6 +49,22 @@ module FriendlyRoutes
           end
         end
       end
+      describe '#compose' do
+        before do
+          @true, @false = Faker::Lorem.words(2)
+          @subject = BooleanParams.new(:name, true: @true, false: @false)
+        end
+        context 'When composing true' do
+          it 'should return value of true' do
+            expect(@subject.compose(true)).to eq(@true)
+          end
+        end
+        context 'When composing false' do
+          it 'should return false' do
+            expect(@subject.compose(false)).to eq(@false)
+          end
+        end
+      end
     end
   end
 end

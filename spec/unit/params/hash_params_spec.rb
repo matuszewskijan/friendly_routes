@@ -20,6 +20,30 @@ module FriendlyRoutes
           expect(@subject.constraints).to eq(/one-roomed|two-roomed/)
         end
       end
+
+      describe '#parse' do
+        before do
+          @params = { 'one-roomed' => 1, 'two-roomed' => 2 }
+          @subject = Params::HashParams.new(:rooms, @params)
+        end
+        it 'should return value by key for any member' do
+          @params.each do |key, value|
+            expect(@subject.parse(key)).to eq(value)
+          end
+        end
+      end
+
+      describe '#compose' do
+        before do
+          @params = { 'one-roomed' => 1, 'two-roomed' => 2 }
+          @subject = Params::HashParams.new(:rooms, @params)
+        end
+        it 'should return key by value for any member' do
+          @params.each do |key, value|
+            expect(@subject.compose(value)).to eq(key)
+          end
+        end
+      end
     end
   end
 end
