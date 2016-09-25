@@ -21,21 +21,27 @@ module FriendlyRoutes
         @optional == true
       end
 
+      # Regexp with allowed params
       def constraints
         raise NotImplementedError
       end
 
-      # Method for parsing values from request
+      # Parse values from request
       #
       # Inverse of {compose}
       def parse
         raise NotImplementedError
       end
 
-      # Method for generating request values from params
+      # Generate request value from params
       #
       # Inverse of {parse}
       def compose
+        raise NotImplementedError
+      end
+
+      # Check if value can be composed
+      def allowed?
         raise NotImplementedError
       end
     end

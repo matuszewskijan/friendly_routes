@@ -54,6 +54,25 @@ module FriendlyRoutes
           end
         end
       end
+
+      describe '#allowed?' do
+        before do
+          @categories = create_list(:category, 3)
+          @subject = CollectionParams.new(:category, Category, :title)
+        end
+        context 'When passed id existing in collection' do
+          it 'should return true' do
+            @categories.each do |category|
+              expect(@subject.allowed?(category.id)).to be(true)
+            end
+          end
+        end
+        context 'When passed incorrect id' do
+          it 'should return false' do
+            expect(@subject.allowed?(@categories.count.next)).to be(false)
+          end
+        end
+      end
     end
   end
 end

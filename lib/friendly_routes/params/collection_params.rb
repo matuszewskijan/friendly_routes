@@ -34,6 +34,13 @@ module FriendlyRoutes
         @collection.find(id)[@key_attr]
       end
 
+      # (see Base#allowed?)
+      # @param [Integer] id id of collection member
+      # @return [Boolean]
+      def allowed?(id)
+        @collection.exists?(id)
+      end
+
       private
 
       def check_params

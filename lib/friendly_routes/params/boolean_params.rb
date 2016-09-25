@@ -32,6 +32,13 @@ module FriendlyRoutes
         value ? @true : @false
       end
 
+      # (see Base#allowed?)
+      # @param [Boolean]
+      # @return [Boolean]
+      def allowed?(value)
+        [true, false].include? value
+      end
+
       private
 
       def check_params(options)

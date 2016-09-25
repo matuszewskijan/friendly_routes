@@ -44,6 +44,25 @@ module FriendlyRoutes
           end
         end
       end
+
+      describe '#allowed?' do
+        before do
+          @params = { 'one-roomed' => 1, 'two-roomed' => 2 }
+          @subject = Params::HashParams.new(:rooms, @params)
+        end
+        context 'When passed value from hash' do
+          it 'should return true' do
+            @params.values.each do |value|
+              expect(@subject.allowed?(value)).to be(true)
+            end
+          end
+        end
+        context 'When passed incorrect value' do
+          it 'should return false' do
+            expect(@subject.allowed?(Faker::Lorem.word)).to be(false)
+          end
+        end
+      end
     end
   end
 end

@@ -30,6 +30,13 @@ module FriendlyRoutes
         @hash.key(value)
       end
 
+      # (see Base#allowed?)
+      # @param [Integer] value hash value
+      # @return [Boolean]
+      def allowed?(value)
+        @hash.values.include?(value)
+      end
+
       private
 
       def check_params

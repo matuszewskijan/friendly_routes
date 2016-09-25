@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 module FriendlyRoutes
@@ -40,15 +41,16 @@ module FriendlyRoutes
         end
         context 'When value is true' do
           it 'should return true' do
-            expect(@subject.parse(@true)).to be true
+            expect(@subject.parse(@true)).to be(true)
           end
         end
         context 'When value is false' do
           it 'should return false' do
-            expect(@subject.parse(@false)).to be false
+            expect(@subject.parse(@false)).to be(false)
           end
         end
       end
+
       describe '#compose' do
         before do
           @true, @false = Faker::Lorem.words(2)
@@ -62,6 +64,26 @@ module FriendlyRoutes
         context 'When composing false' do
           it 'should return false' do
             expect(@subject.compose(false)).to eq(@false)
+          end
+        end
+      end
+
+      describe '#allowed?' do
+        before do
+          @true, @false = Faker::Lorem.words(2)
+          @subject = BooleanParams.new(:name, true: @true, false: @false)
+        end
+        context 'When passed true or false' do
+          it 'should return true' do
+            expect(@subject.allowed?(true)).to be(true)
+            expect(@subject.allowed?(false)).to be(true)
+          end
+        end
+        context 'When passed not true or false' do
+          it 'should return false' do
+            expect(@subject.allowed?('true')).to be(false)
+            expect(@subject.allowed?(nil)).to be(false)
+            expect(@subject.allowed?(1)).to be(false)
           end
         end
       end
