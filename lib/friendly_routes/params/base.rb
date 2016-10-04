@@ -21,6 +21,11 @@ module FriendlyRoutes
         @optional == true
       end
 
+      # returns true if param required
+      def required?
+        @optional == false
+      end
+
       # Regexp with allowed params
       def constraints
         raise NotImplementedError

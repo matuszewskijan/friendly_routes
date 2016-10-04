@@ -21,6 +21,10 @@ module FriendlyRoutes
       @params.select { |param| param.is_a?(FriendlyRoutes::Params::Base) }
     end
 
+    def required_params
+      dynamic_params.select(&:required?)
+    end
+
     def inspect
       dynamic_params.map(&:name).join(', ')
     end

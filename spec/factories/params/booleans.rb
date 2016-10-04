@@ -5,6 +5,13 @@ FactoryGirl.define do
 
     name { Faker::Lorem.word }
 
-    initialize_with { new(name, true: statements.first, false: statements.last) }
+    optional true
+    trait :required do
+      optional false
+    end
+
+    initialize_with do
+      new(name, { true: statements.first, false: statements.last }, optional: optional)
+    end
   end
 end
