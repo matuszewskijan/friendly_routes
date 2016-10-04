@@ -1,10 +1,22 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :collection, class: FriendlyRoutes::Params::CollectionParams do
+    transient do
+      items 0
+    end
     name { Faker::Lorem.word }
-    collection { Category }
-    attribute { :title }
+    collection Category
+    attribute :title
+    optional true
 
-    initialize_with { new(name, collection, attribute) }
+    trait :required do
+      optional false
+    end
+
+    initialize_with { new(name, collection, attribute, optional: optional) }
+
+    after(:build) do |_collection_param, evaluator|
+      create_list(:category, evaluator.items)
+    end
   end
 end

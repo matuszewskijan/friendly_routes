@@ -28,20 +28,20 @@ module FriendlyRoutes
     context 'when keep_all == true' do
       it 'should not delete friendly_route params' do
         Parser.new(@params, true).call
-        names = @route.params.map do |param|
-          prefixed_name(param)
-        end
-        expect(@params.keys).to include(*names)
+        expect(@params.keys).to include(
+          prefixed_name(@route.params.first),
+          prefixed_name(@route.params.last)
+        )
       end
     end
 
     context 'when keep_all == false' do
       it 'should delete friendly_route params' do
         Parser.new(@params, false).call
-        names = @route.params.map do |param|
-          prefixed_name(param)
-        end
-        expect(@params.keys).not_to include(*names)
+        expect(@params.keys).not_to include(
+          prefixed_name(@route.params.first),
+          prefixed_name(@route.params.last)
+        )
       end
     end
   end

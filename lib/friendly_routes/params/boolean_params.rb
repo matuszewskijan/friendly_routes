@@ -26,14 +26,14 @@ module FriendlyRoutes
       end
 
       # (see Base#compose)
-      # @param [Boolean]
+      # @param [Boolean] value
       # @return [String] request value
       def compose(value)
         value ? @true : @false
       end
 
       # (see Base#allowed?)
-      # @param [Boolean]
+      # @param [Boolean] value
       # @return [Boolean]
       def allowed?(value)
         [true, false].include? value

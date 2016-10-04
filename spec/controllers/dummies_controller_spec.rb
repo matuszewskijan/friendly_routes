@@ -44,8 +44,9 @@ describe DummiesController do
           allow(controller).to receive(:params) { params }
         end
         before do
-          @route = build(:route, :with_category)
-          @param = @route.params.first
+          @route = build(:route)
+          @param = build(:collection, items: 3)
+          @route.params << @param
           @prefixed_name = FriendlyRoutes::PrefixedParam.new(@param.name, @route.prefix).call
           @params = {
             friendly_route: @route
