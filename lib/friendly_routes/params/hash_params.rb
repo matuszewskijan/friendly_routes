@@ -10,6 +10,9 @@ module FriendlyRoutes
         super(:collection, name, optional)
         @hash = hash
         check_params
+        @hash = @hash.map do |k, v|
+          [k, v.try(:to_s) || v]
+        end.to_h
       end
 
       def constraints
@@ -27,14 +30,14 @@ module FriendlyRoutes
       # @param [Object] value hash value
       # @return [String, Symbol] hash key
       def compose(value)
-        @hash.key(value)
+        @hash.key(value) || @hash.key(value.try(:to_s))
       end
 
       # (see Base#allowed?)
-      # @param [Integer] value hash value
+      # @param [Object] value hash value
       # @return [Boolean]
       def allowed?(value)
-        @hash.values.include?(value)
+        @hash.values.include?(value) || @hash.values.include?(value.try(:to_s))
       end
 
       private

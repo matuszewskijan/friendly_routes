@@ -41,12 +41,12 @@ module FriendlyRoutes
         end
         context 'When value is true' do
           it 'should return true' do
-            expect(@subject.parse(@true)).to be(true)
+            expect(@subject.parse(@true)).to eq('true')
           end
         end
         context 'When value is false' do
           it 'should return false' do
-            expect(@subject.parse(@false)).to be(false)
+            expect(@subject.parse(@false)).to eq('false')
           end
         end
       end
@@ -81,7 +81,7 @@ module FriendlyRoutes
         end
         context 'When passed not true or false' do
           it 'should return false' do
-            expect(@subject.allowed?('true')).to be(false)
+            expect(@subject.allowed?('not-true')).to be(false)
             expect(@subject.allowed?(nil)).to be(false)
             expect(@subject.allowed?(1)).to be(false)
           end

@@ -21,7 +21,7 @@ module FriendlyRoutes
     it 'should add params with correct values' do
       Parser.new(@params, false).call
       expect(@params).to include(
-        @route.params.first.name => true, @route.params.last.name => false
+        @route.params.first.name => 'true', @route.params.last.name => 'false'
       )
     end
 

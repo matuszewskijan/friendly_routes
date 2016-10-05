@@ -22,21 +22,21 @@ module FriendlyRoutes
       # @param [String] value request value
       # @return [Boolean]
       def parse(value)
-        value == @true
+        (value == @true).to_s
       end
 
       # (see Base#compose)
-      # @param [Boolean] value
+      # @param [Boolean, String] value boolean, or "True"/"False" strings
       # @return [String] request value
       def compose(value)
-        value ? @true : @false
+        value == true || value == 'true' ? @true : @false
       end
 
       # (see Base#allowed?)
-      # @param [Boolean] value
+      # @param [Boolean, String] value boolean, or "True"/"False" strings
       # @return [Boolean]
       def allowed?(value)
-        [true, false].include? value
+        [true, false, 'true', 'false'].include? value
       end
 
       private

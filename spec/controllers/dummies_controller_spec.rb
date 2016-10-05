@@ -26,7 +26,7 @@ describe DummiesController do
             get :index
           end
           it 'should set true value' do
-            expect(controller.params[@param.name]).to be true
+            expect(controller.params[@param.name]).to eq('true')
           end
         end
         context 'When false value passed' do
@@ -35,7 +35,7 @@ describe DummiesController do
             get :index
           end
           it 'should set false value' do
-            expect(controller.params[@param.name]).to be false
+            expect(controller.params[@param.name]).to eq('false')
           end
         end
       end

@@ -26,9 +26,9 @@ module FriendlyRoutes
           @params = { 'one-roomed' => 1, 'two-roomed' => 2 }
           @subject = Params::HashParams.new(:rooms, @params)
         end
-        it 'should return value by key for any member' do
+        it 'should return string value by key for any member' do
           @params.each do |key, value|
-            expect(@subject.parse(key)).to eq(value)
+            expect(@subject.parse(key)).to eq(value.to_s)
           end
         end
       end
