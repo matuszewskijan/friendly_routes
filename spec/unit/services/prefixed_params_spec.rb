@@ -45,7 +45,7 @@ describe FriendlyRoutes::PrefixedParams do
     end
 
     it 'should return hash of prefixed params' do
-      is_expected.to match_array(["#{@prefix}_#{@param_name}"])
+      is_expected.to match_array(["#{@prefix}_#{@param_name}".to_sym])
     end
   end
 end
