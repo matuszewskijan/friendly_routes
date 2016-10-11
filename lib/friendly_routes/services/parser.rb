@@ -22,7 +22,10 @@ module FriendlyRoutes
       value = @params[prefixed_name]
       return unless value
       @params[param.name] = param.parse(value)
-      @params.delete(prefixed_name) unless @keep_all || param.name == prefixed_name
+      unless @keep_all
+        @params.delete(prefixed_name) unless param.name == prefixed_name
+        @params.delete(:friendly_route)
+      end
     end
   end
 end
