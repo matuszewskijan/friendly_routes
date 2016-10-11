@@ -13,7 +13,7 @@ describe FriendlyRoutes::Constraints do
     end
     context 'multiple params' do
       before do
-        @params = Faker::Lorem.words(2).map { |word| build(:boolean, name: word) }
+        @params = %w(first_param second_param).map { |word| build(:boolean, name: word) }
       end
       it { is_expected.to be_a(Hash) }
       it 'should have all params' do
