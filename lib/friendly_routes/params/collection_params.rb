@@ -38,7 +38,7 @@ module FriendlyRoutes
       # @param [Integer] id id of collection member
       # @return [Boolean]
       def allowed?(id)
-        @collection.exists?(id)
+        @collection.where(id: id).count > 0
       end
 
       private
