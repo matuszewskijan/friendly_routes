@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    friendly_routes (0.5.0)
+    friendly_routes (0.5.1)
       rails
 
 GEM

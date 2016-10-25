@@ -41,8 +41,8 @@ module FriendlyRoutes
       # @param [Integer|Object] id_or_instance collection instance or it id
       # @return [Boolean]
       def allowed?(id_or_instance)
-        if id_or_instance.is_a?(@collection.class)
-          @collection_ids.includes?(id_or_instance.id)
+        if id_or_instance.is_a?(ActiveRecord::Base)
+          @collection_ids.include?(id_or_instance.id)
         else
           @collection.find_by(id: id_or_instance).present?
         end
