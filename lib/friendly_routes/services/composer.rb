@@ -27,7 +27,7 @@ module FriendlyRoutes
 
     def compose(param)
       value = @params[param.name]
-      return unless param.allowed?(value)
+      return if value.nil? || param.refused?(value)
       prefixed_name = FriendlyRoutes::PrefixedParam.new(param.name, @route.prefix).call
       @params[prefixed_name] = param.compose(value)
       @params.delete(param.name) unless param.name == prefixed_name

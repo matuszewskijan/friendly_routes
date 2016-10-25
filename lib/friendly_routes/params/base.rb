@@ -49,6 +49,11 @@ module FriendlyRoutes
       def allowed?
         raise NotImplementedError
       end
+
+      # Inverse of {allowed?}
+      def refused?(*args)
+        !allowed?(*args)
+      end
     end
   end
 end
