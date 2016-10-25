@@ -14,6 +14,7 @@ module FriendlyRoutes
         @collection = collection
         @key_attr = key_attr
         check_params
+        @collection_ids = collection.pluck(:id)
       end
 
       def constraints
@@ -28,17 +29,23 @@ module FriendlyRoutes
       end
 
       # (see Base#compose)
-      # @param [Integer] id id of collection member
+      # @param [Integer|Object] id_or_instance collection instance or it id
       # @return [String] member key attr
-      def compose(id)
-        @collection.find(id)[@key_attr]
+      def compose(id_or_instance)
+        instance = id_or_instance
+        instance = @collection.find(id_or_instance) unless instance.is_a?(ActiveRecord::Base)
+        instance[@key_attr]
       end
 
       # (see Base#allowed?)
-      # @param [Integer] id id of collection member
+      # @param [Integer|Object] id_or_instance collection instance or it id
       # @return [Boolean]
-      def allowed?(id)
-        @collection.find_by(id: id).present?
+      def allowed?(id_or_instance)
+        if id_or_instance.is_a?(@collection.class)
+          @collection_ids.includes?(id_or_instance.id)
+        else
+          @collection.find_by(id: id_or_instance).present?
+        end
       end
 
       private

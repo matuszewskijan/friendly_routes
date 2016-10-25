@@ -48,28 +48,57 @@ module FriendlyRoutes
           @categories = create_list(:category, 3)
           @subject = CollectionParams.new(:category, Category, :title)
         end
-        it 'should return title of passed item for any item' do
-          @categories.each do |category|
-            expect(@subject.compose(category.id)).to eq(category.title)
+        context 'when id passed' do
+          it 'should return title of passed item for any item' do
+            @categories.each do |category|
+              expect(@subject.compose(category.id)).to eq(category.title)
+            end
+          end
+        end
+        context 'when instance passed' do
+          it 'should return title of passed item for any item' do
+            @categories.each do |category|
+              expect(@subject.compose(category)).to eq(category.title)
+            end
           end
         end
       end
 
       describe '#allowed?' do
-        before do
-          @categories = create_list(:category, 3)
-          @subject = CollectionParams.new(:category, Category, :title)
-        end
-        context 'When passed id existing in collection' do
-          it 'should return true' do
-            @categories.each do |category|
-              expect(@subject.allowed?(category.id)).to be(true)
+        context 'when id passed' do
+          before do
+            @categories = create_list(:category, 3)
+            @subject = CollectionParams.new(:category, Category, :title)
+          end
+          context 'When passed id existing in collection' do
+            it 'should return true' do
+              @categories.each do |category|
+                expect(@subject.allowed?(category.id)).to be(true)
+              end
+            end
+          end
+          context 'When passed incorrect id' do
+            it 'should return false' do
+              expect(@subject.allowed?(@categories.count.next)).to be(false)
             end
           end
         end
-        context 'When passed incorrect id' do
-          it 'should return false' do
-            expect(@subject.allowed?(@categories.count.next)).to be(false)
+        context 'when instance passed' do
+          before do
+            @collecion_categories = create_list(:category, 2)
+            @subject = CollectionParams.new(:category, Category.where('id < 3'), :title)
+          end
+          context 'When passed instance existing in collection' do
+            it 'should return true' do
+              @collecion_categories.each do |category|
+                expect(@subject.allowed?(category)).to be(true)
+              end
+            end
+          end
+          context 'When passed incorrect instance' do
+            it 'should return false' do
+              expect(@subject.allowed?(create(:category))).to be(false)
+            end
           end
         end
       end
