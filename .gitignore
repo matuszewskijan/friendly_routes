@@ -9,3 +9,4 @@ spec/dummy/tmp/
 
 # Allow any developer to choose his gemset name
 .ruby-gemset
+*.byebug_history
