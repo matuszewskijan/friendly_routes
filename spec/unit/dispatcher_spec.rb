@@ -7,25 +7,38 @@ module FriendlyRoutes
       let(:method) { [:get, :post, :put, :delete].sample }
       let(:route_name) { Faker::Lorem.word }
       let(:path) { '/' }
+
       before do
         @controller = 'items'
         @action = 'index'
         @route = build(:route)
       end
+
       it 'should call method with router params' do
+        @route.params << build(:collection)
         expect(subject).to receive(method).with(
           path + @route.path,
-          controller: @controller,
-          action: @action,
+          controller:     @controller,
+          action:         @action,
           friendly_route: @route,
-          as: @route_name,
-          constraints: @route.constraints
+          as:             @route_name,
+          constraints:    @route.constraints
         )
-        expect(
-          subject.friendly_url_for(
-            @route, method, path, as: @route_name, controller: @controller, action: @action
-          )
-        )
+
+        subject.friendly_url_for @route, method, path,
+          controller: @controller,
+          action:     @action,
+          as:         @route_name
+      end
+
+      it 'should just return if table not exist' do
+        @route.params << build(:collection, collection: 'fake')
+        expect(subject).to_not receive(method)
+
+        subject.friendly_url_for @route, method, path,
+          controller: @controller,
+          action:     @action,
+          as:         @route_name
       end
     end
   end

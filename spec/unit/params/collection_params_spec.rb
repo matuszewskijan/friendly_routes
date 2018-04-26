@@ -4,22 +4,43 @@ module FriendlyRoutes
   module Params
     describe CollectionParams do
       describe '#initialize' do
-        context 'When correct params not passed' do
-          shared_examples 'failed creation' do |collection, method|
-            it 'should raise ArgumentError' do
-              expect do
-                CollectionParams.new(Faker::Hipster.word, collection, method)
-              end.to raise_error(ArgumentError)
+        shared_examples 'failed creation' do
+          it 'should raise ArgumentError' do
+            expect do
+              CollectionParams.new(Faker::Hipster.word, collection, method)
+            end.to raise_error(ArgumentError, message)
+          end
+        end
+
+        context 'when collection not passed' do
+          include_examples 'failed creation' do
+            let(:collection) { nil }
+            let(:method) { :get }
+            let(:message) { 'Collection or key attribute not passed' }
+          end
+        end
+
+        context 'when method not passed' do
+          include_examples 'failed creation' do
+            let(:collection) { Class.new }
+            let(:method) { nil }
+            let(:message) { 'Collection or key attribute not passed' }
+          end
+        end
+
+        context 'collection not respond to :to_s' do
+          include_examples 'failed creation' do
+            let(:collection) do
+              collection = Class.new
+              allow(collection).to receive(:respond_to?) { false }
+              collection
             end
-          end
-          context 'When collection not passed' do
-            it_behaves_like 'failed creation', nil
-          end
-          context 'When method not passed' do
-            it_behaves_like 'failed creation', Class.new, nil
+            let(:method) { :get }
+            let(:message) { 'Collection should respond to :to_s' }
           end
         end
       end
+
       describe '#constraints' do
         before do
           create_list(:category, 3)

@@ -14,18 +14,17 @@ module FriendlyRoutes
         @collection = collection
         @key_attr = key_attr
         check_params
-        @collection_ids = collection.pluck(:id)
       end
 
       def constraints
-        Regexp.new @collection.all.map(&@key_attr).compact.map(&:downcase).join('|')
+        Regexp.new klass.all.map(&@key_attr).compact.map(&:downcase).join('|')
       end
 
       # (see Base#parse)
       # @param [String] value value of item key attr
       # @return [Integer, nil] item id or nil if item not found
       def parse(value)
-        @collection.find_by(@key_attr => value).try(:id)
+        klass.find_by(@key_attr => value).try(:id)
       end
 
       # (see Base#compose)
@@ -33,7 +32,7 @@ module FriendlyRoutes
       # @return [String] member key attr
       def compose(id_or_instance)
         instance = id_or_instance
-        instance = @collection.find(id_or_instance) unless instance.is_a?(ActiveRecord::Base)
+        instance = klass.find(id_or_instance) unless instance.is_a?(ActiveRecord::Base)
         instance[@key_attr]
       end
 
@@ -42,18 +41,27 @@ module FriendlyRoutes
       # @return [Boolean]
       def allowed?(id_or_instance)
         if id_or_instance.is_a?(ActiveRecord::Base)
+          @collection_ids ||= collection.pluck(:id)
           @collection_ids.include?(id_or_instance.id)
         else
-          @collection.find_by(id: id_or_instance).present?
+          klass.find_by(id: id_or_instance).present?
         end
       end
 
       private
 
+      def klass
+        @klass ||= @collection.to_s.camelize.constantize
+      end
+
       def check_params
-        if @collection.nil? || @key_attr.nil?
-          raise ArgumentError, 'Collection or key attribute not passed'
-        end
+        message = nil
+        message = if @collection.nil? || @key_attr.nil?
+                    'Collection or key attribute not passed'
+                  elsif !@collection.respond_to?(:to_s)
+                    'Collection should respond to :to_s'
+                  end
+        raise(ArgumentError, message) if message
       end
     end
   end
