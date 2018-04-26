@@ -1,6 +1,6 @@
 require 'faker'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :category do
     sequence :title do |x|
       Faker::Lorem.word + "_#{x}"

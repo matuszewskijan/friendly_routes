@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DummiesController do
   describe 'Basic' do
     describe 'get #index' do
-      it { expect(response).to be_success }
+      it { expect(response).to be_successful }
     end
   end
   describe 'Friendly routes' do

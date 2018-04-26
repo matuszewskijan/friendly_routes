@@ -4,13 +4,13 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'database_cleaner'
 
 ActiveRecord::Migration.maintain_test_schema!
 
-# FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
-# FactoryGirl.find_definitions
+# FactoryBot.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+# FactoryBot.find_definitions
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -20,13 +20,13 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = false
   end
   config.shared_context_metadata_behavior = :apply_to_host_groups
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with :truncation, except: 'ar_internal_metadata'
   end
 
   config.around(:each) do |example|

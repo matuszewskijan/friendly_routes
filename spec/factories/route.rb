@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :route, class: FriendlyRoutes::Route do
     transient do
       boolean_params 0
