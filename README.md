@@ -1,9 +1,7 @@
 # Friendly Routes
 Friendly Routes creates DSL for creating rails routes with human friendly URLs
 
-[![Gem Version](https://badge.fury.io/rb/friendly_routes.svg)](https://badge.fury.io/rb/friendly_routes)
-[![Code Climate](https://codeclimate.com/github/RoM4iK/friendly_routes/badges/gpa.svg)](https://codeclimate.com/github/RoM4iK/friendly_routes)
-[![Build Status](https://travis-ci.org/RoM4iK/friendly_routes.svg?branch=master)](https://travis-ci.org/RoM4iK/friendly_routes)
+[![Build Status](https://travis-ci.org/N0xFF/friendly_routes.svg?branch=master)](https://travis-ci.org/N0xFF/friendly_routes)
 ## Usage
 How to use my plugin.
 
