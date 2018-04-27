@@ -6,7 +6,7 @@
 <title>
   Class: FriendlyRoutes::Params::Base
   
-    &mdash; Documentation by YARD 0.9.5
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="../../class_list.html"></iframe>
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -58,8 +58,6 @@
 </div>
         <div class="clear"></div>
       </div>
-
-      <iframe id="search_frame" src="../../class_list.html"></iframe>
 
       <div id="content"><h1>Class: FriendlyRoutes::Params::Base
   <span class="abstract note title">Abstract</span>
@@ -335,6 +333,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Parse values from request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#refused%3F-instance_method" title="#refused? (instance method)">#<strong>refused?</strong>(*args)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Inverse of <span class='object_link'><a href="#allowed%3F-instance_method" title="FriendlyRoutes::Params::Base#allowed? (method)">#allowed?</a></span>.</p>
 </div></span>
   
 </li>
@@ -837,6 +859,60 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="refused?-instance_method">
+  
+    #<strong>refused?</strong>(*args)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Inverse of <span class='object_link'><a href="#allowed%3F-instance_method" title="FriendlyRoutes::Params::Base#allowed? (method)">#allowed?</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/friendly_routes/params/base.rb', line 54</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_refused?'>refused?</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='op'>!</span><span class='id identifier rubyid_allowed?'>allowed?</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="required?-instance_method">
   
     #<strong>required?</strong>  &#x21d2; <tt>Boolean</tt> 
@@ -895,9 +971,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Oct  4 20:25:06 2016 by
+  Generated on Fri Apr 27 16:00:40 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.0).
+  0.9.12 (ruby-2.4.3).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Class: FriendlyRoutes::Params::BooleanParams
   
-    &mdash; Documentation by YARD 0.9.5
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="../../class_list.html"></iframe>
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -58,8 +58,6 @@
 </div>
         <div class="clear"></div>
       </div>
-
-      <iframe id="search_frame" src="../../class_list.html"></iframe>
 
       <div id="content"><h1>Class: FriendlyRoutes::Params::BooleanParams
   
@@ -315,7 +313,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Base.html" title="FriendlyRoutes::Params::Base (class)">Base</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Base.html#optional%3F-instance_method" title="FriendlyRoutes::Params::Base#optional? (method)">#optional?</a></span>, <span class='object_link'><a href="Base.html#required%3F-instance_method" title="FriendlyRoutes::Params::Base#required? (method)">#required?</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Base.html#optional%3F-instance_method" title="FriendlyRoutes::Params::Base#optional? (method)">#optional?</a></span>, <span class='object_link'><a href="Base.html#refused%3F-instance_method" title="FriendlyRoutes::Params::Base#refused? (method)">#refused?</a></span>, <span class='object_link'><a href="Base.html#required%3F-instance_method" title="FriendlyRoutes::Params::Base#required? (method)">#required?</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -526,9 +524,14 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>, <tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>boolean, or “True”/“False” strings</p>
+</div>
       
     </li>
   
@@ -562,7 +565,7 @@
       <pre class="code"><span class="info file"># File 'lib/friendly_routes/params/boolean_params.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allowed?'>allowed?</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>true</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>false</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -597,9 +600,14 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>, <tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>boolean, or “True”/“False” strings</p>
+</div>
       
     </li>
   
@@ -638,7 +646,7 @@
       <pre class="code"><span class="info file"># File 'lib/friendly_routes/params/boolean_params.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compose'>compose</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_value'>value</span> <span class='op'>?</span> <span class='ivar'>@true</span> <span class='op'>:</span> <span class='ivar'>@false</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='kw'>true</span> <span class='op'>||</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>true</span><span class='tstring_end'>&#39;</span></span> <span class='op'>?</span> <span class='ivar'>@true</span> <span class='op'>:</span> <span class='ivar'>@false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -744,7 +752,7 @@
       <pre class="code"><span class="info file"># File 'lib/friendly_routes/params/boolean_params.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='ivar'>@true</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='ivar'>@true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -756,9 +764,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Oct  4 20:25:06 2016 by
+  Generated on Fri Apr 27 16:00:40 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.0).
+  0.9.12 (ruby-2.4.3).
 </div>
 
     </div>
