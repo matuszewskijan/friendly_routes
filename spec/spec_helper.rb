@@ -34,4 +34,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
 end
