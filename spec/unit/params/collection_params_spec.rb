@@ -27,18 +27,6 @@ module FriendlyRoutes
             let(:message) { 'Collection or key attribute not passed' }
           end
         end
-
-        context 'collection not respond to :to_s' do
-          include_examples 'failed creation' do
-            let(:collection) do
-              collection = Class.new
-              allow(collection).to receive(:respond_to?) { false }
-              collection
-            end
-            let(:method) { :get }
-            let(:message) { 'Collection should respond to :to_s' }
-          end
-        end
       end
 
       describe '#constraints' do
@@ -55,7 +43,7 @@ module FriendlyRoutes
       describe '#parse' do
         before do
           @categories = create_list(:category, 3)
-          @subject = CollectionParams.new(:category, Category, :title)
+          @subject = CollectionParams.new(:category, :category, :title)
         end
         it 'should return id of passed item for any item' do
           @categories.each do |category|
@@ -67,7 +55,7 @@ module FriendlyRoutes
       describe '#compose' do
         before do
           @categories = create_list(:category, 3)
-          @subject = CollectionParams.new(:category, Category, :title)
+          @subject = CollectionParams.new(:category, :category, :title)
         end
         context 'when id passed' do
           it 'should return title of passed item for any item' do
@@ -89,7 +77,7 @@ module FriendlyRoutes
         context 'when id passed' do
           before do
             @categories = create_list(:category, 3)
-            @subject = CollectionParams.new(:category, Category, :title)
+            @subject = CollectionParams.new(:category, :category, :title)
           end
           context 'When passed id existing in collection' do
             it 'should return true' do

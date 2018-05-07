@@ -5,7 +5,7 @@ FactoryBot.define do
       items 0
     end
     name { Faker::Lorem.word }
-    collection Category
+    collection :category
     attribute :title
     optional true
 
