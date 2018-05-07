@@ -8,7 +8,7 @@ module FriendlyRoutes
         ActiveRecord::Base.connection
       end
     rescue ActiveRecord::NoDatabaseError, PG::ConnectionBad
-      puts "Not connected"
+      puts "FriendlyRoutes: Not connected"
     else
       tables_required = route.params.dup.keep_if do |param|
         param.is_a?(FriendlyRoutes::Params::CollectionParams)
@@ -17,7 +17,7 @@ module FriendlyRoutes
       tables = tables_required - ActiveRecord::Base.connection.tables
 
       if tables.present?
-        return puts "Tables #{tables.join(", ")} not exists"
+        return puts "FriendlyRoutes: Tables #{tables.join(", ")} not exists"
       end
 
       public_send(
