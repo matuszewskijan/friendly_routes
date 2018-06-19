@@ -14,15 +14,15 @@ module FriendlyRoutes
     def initialize(*options)
       super
 
-      return unless friendly_route = @recall[:friendly_route]
+      if friendly_route = @recall[:friendly_route]
+        friendly_route.params.each do |param|
+          param          = param.name
+          prefix         = friendly_route.prefix
+          prefixed_param = FriendlyRoutes::PrefixedParam.new(param, prefix)
 
-      friendly_route.params.each do |param|
-        param          = param.name
-        prefix         = friendly_route.prefix
-        prefixed_param = FriendlyRoutes::PrefixedParam.new(param, prefix)
-
-        use_recall_for(prefixed_param.call)
-        @options.delete(param)
+          use_recall_for(prefixed_param.call)
+          @options.delete(param)
+        end
       end
     end
   end
