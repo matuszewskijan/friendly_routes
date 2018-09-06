@@ -14,4 +14,6 @@ Rails.application.routes.draw do
 
   friendly_url_for FriendlyRoutes::Route.new([male, category]),
                    :get, "/", controller: :friendly, action: :index, as: :friendly
+
+  resources :friendly, only: :new
 end
