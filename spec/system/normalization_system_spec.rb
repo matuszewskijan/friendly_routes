@@ -47,6 +47,11 @@ describe 'Normalization', type: :system do
         get friendly_url(friendly_routes_male: 'male')
         expect(assigns(:new_action_path)).to eq('/friendly/new?male=true')
       end
+
+      it 'override friendly param' do
+        get friendly_url(friendly_routes_male: 'male')
+        expect(assigns(:path2)).to eq('/female')
+      end
     end
   end
 end
