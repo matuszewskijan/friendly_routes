@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 FactoryBot.define do
   factory :boolean, class: FriendlyRoutes::Params::BooleanParams do
-    statements { Faker::Lorem.words(2) }
+    statements { Faker::Lorem.words(number: 2) }
 
     name { Faker::Lorem.word }
 

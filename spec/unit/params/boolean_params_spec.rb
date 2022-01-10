@@ -27,7 +27,7 @@ module FriendlyRoutes
       end
       describe '#constraints' do
         before do
-          @true, @false = Faker::Lorem.words(2)
+          @true, @false = Faker::Lorem.words(number: 2)
           @subject = BooleanParams.new(:name, true: @true, false: @false)
         end
         it 'should return Regexp with true or false value' do
@@ -36,7 +36,7 @@ module FriendlyRoutes
       end
       describe '#parse' do
         before do
-          @true, @false = Faker::Lorem.words(2)
+          @true, @false = Faker::Lorem.words(number: 2)
           @subject = BooleanParams.new(:name, true: @true, false: @false)
         end
         context 'When value is true' do
@@ -53,7 +53,7 @@ module FriendlyRoutes
 
       describe '#compose' do
         before do
-          @true, @false = Faker::Lorem.words(2)
+          @true, @false = Faker::Lorem.words(number: 2)
           @subject = BooleanParams.new(:name, true: @true, false: @false)
         end
         context 'When composing true' do
@@ -70,7 +70,7 @@ module FriendlyRoutes
 
       describe '#allowed?' do
         before do
-          @true, @false = Faker::Lorem.words(2)
+          @true, @false = Faker::Lorem.words(number: 2)
           @subject = BooleanParams.new(:name, true: @true, false: @false)
         end
         context 'When passed true or false' do
