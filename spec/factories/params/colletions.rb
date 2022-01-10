@@ -2,15 +2,15 @@
 FactoryBot.define do
   factory :collection, class: FriendlyRoutes::Params::CollectionParams do
     transient do
-      items 0
+      items { 0 }
     end
     name { Faker::Lorem.word }
-    collection :category
-    attribute :title
-    optional true
+    collection { :category }
+    attribute { :title }
+    optional { true }
 
     trait :required do
-      optional false
+      optional { false }
     end
 
     initialize_with { new(name, collection, attribute, optional: optional) }

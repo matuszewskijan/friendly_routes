@@ -5,9 +5,9 @@ FactoryBot.define do
 
     name { Faker::Lorem.word }
 
-    optional true
+    optional { true }
     trait :required do
-      optional false
+      optional { false }
     end
 
     initialize_with do
