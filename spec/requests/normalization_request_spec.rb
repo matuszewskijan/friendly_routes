@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Normalization', type: :system do
+describe 'Normalization', type: :request do
   describe 'keep friendly route params in path' do
     before do
       boolean_param = build :boolean, name: 'male', statements: %w(male female)
