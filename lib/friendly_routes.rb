@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_routes/dispatcher'
+require 'friendly_routes/dispatch'
 require 'friendly_routes/helper'
 require 'friendly_routes/normalization'
 require 'friendly_routes/route'
