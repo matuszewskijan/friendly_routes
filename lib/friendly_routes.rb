@@ -19,6 +19,8 @@ module FriendlyRoutes
 end
 
 ActionDispatch::Routing::Mapper.include FriendlyRoutes::Dispatcher
+# NOTE: To use `super` on class methods we need to prepend our module on singleton_class
+ActionDispatch::Routing::Mapper.singleton_class.prepend FriendlyRoutes::Dispatcher
 ActionDispatch::Routing::RouteSet::Generator.prepend FriendlyRoutes::Normalization
 ActiveSupport.on_load(:action_controller) do
   include FriendlyRoutes::Helper

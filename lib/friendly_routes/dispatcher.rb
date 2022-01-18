@@ -30,30 +30,13 @@ module FriendlyRoutes
         as:             as
       )
     end
-  end
-end
 
-module ActionDispatch::Routing
-  class Mapper
-    # NOTE: Overwrite ActionDispatch::Routing::Mapper to disable moving slashes in URLs
-    # containg only optional parameters(friendly route mounted on root path)
-    def self.normalize_path(path)
-      path = ::ActionDispatch::Journey::Router::Utils.normalize_path(path)
-
-      # reverse "/(", "/((" etc to "(/", "((/" etc
-      path.gsub!(%r{/(\(+)/?}, '\1/')
-      # if a path is all optional segments, change the leading "(/" back to
-      # "/(" so it evaluates to "/" when interpreted with no options.
-      # Unless, however, at least one secondary segment consists of a static
-      # part, ex. "(/:locale)(/pages/:page)"
-      # old_path = path.clone
-      # old_path  = path.clone
-      # NOTE: It's not desired behaviour for friendly_routes gem so we're disabling this `sub!` call
-      # otherwise paths with all optional parameters won't be properly matched, for example:
-      # "/(/:city_id)(/:location_id)"
-      path.sub!(%r{^(\(+)/}, '/\1') if %r{^(\(+[^)]+\))(\(+/:[^)]+\))*$}.match?(path) && !path.include?(':friendly_routes')
+    def normalize_path(path)
+      # To properly map Friendly Routes with all optional arguments
+      # reverse "/(", "/((" etc. to "(/", "((/" etc. to "(/", "(//" etc.
+      path = super(path)
+      path.gsub!(%r{/(\(+)/?}, '\1/') if path.include?(':friendly')
       path
     end
   end
 end
-
