@@ -9,6 +9,7 @@ module FriendlyRoutes
     def prefixed_name(param)
       FriendlyRoutes::PrefixedParam.new(param.name, @route.prefix).call
     end
+    
     before do
       @route = build(:route, boolean_params: 2)
       @params = {

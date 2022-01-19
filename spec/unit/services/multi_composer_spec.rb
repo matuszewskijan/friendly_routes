@@ -5,6 +5,7 @@ module FriendlyRoutes
     def prefixed_name(route, param)
       FriendlyRoutes::PrefixedParam.new(param.name, route.prefix).call
     end
+
     before do
       @boolean_param = build(:boolean, :required)
       @collection_param = build(:collection, :required)
@@ -21,12 +22,14 @@ module FriendlyRoutes
 
     context 'When matches mixed_route' do
       subject { MultiComposer.new(@routes, @params) }
+
       before do
         @params = {
           @boolean_param.name => true,
           @collection_param.name => @collection_param.collection.first.id
         }
       end
+
       it 'should return params' do
         expect(subject.call).to include(
           prefixed_name(@mixed_route, @boolean_param) => @boolean_param.true,
@@ -42,11 +45,13 @@ module FriendlyRoutes
 
     context 'When matches boolean_route' do
       subject { MultiComposer.new(@routes, @params) }
+
       before do
         @params = {
           @boolean_param.name => false
         }
       end
+
       it 'should return params' do
         expect(subject.call).to include(
           prefixed_name(@boolean_route, @boolean_param) => @boolean_param.false
@@ -61,11 +66,13 @@ module FriendlyRoutes
 
     context 'When matches collection_route' do
       subject { MultiComposer.new(@routes, @params) }
+
       before do
         @params = {
           @collection_param.name => @collection_param.collection.last.id
         }
       end
+
       it 'should return params' do
         expect(subject.call).to include(
           prefixed_name(@collection_route, @collection_param) =>

@@ -34,11 +34,12 @@ module FriendlyRoutes
       it 'should just return if table not exist' do
         @route.params << build(:collection, collection: 'fake')
         expect(subject).to_not receive(method)
-
-        subject.friendly_url_for @route, method, path,
-          controller: @controller,
-          action:     @action,
-          as:         @route_name
+        expect do
+          subject.friendly_url_for @route, method, path,
+            controller: @controller,
+            action:     @action,
+            as:         @route_name
+        end.to output(%r{Tables fakes not exists}).to_stdout
       end
     end
   end
