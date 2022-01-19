@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe 'Normalization', type: :request do
-  def formatted_routes
-    r = Rails.application.routes.routes
-    i = ActionDispatch::Routing::RoutesInspector.new(r)
-    f = ActionDispatch::Routing::ConsoleFormatter.new
-    i.format(f).split("\n")
-  end
-
   # NOTE: We had to monkey patch ActionDispatch::Routing::Mapper in dispatcher.rb to revert
   # changing URLs with all optional to require '/' at the beginning.
   # Here we ensure that requesting such route works.
