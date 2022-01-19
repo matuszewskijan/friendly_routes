@@ -12,8 +12,19 @@ Rails.application.routes.draw do
     CollectionParams.new(:category_id, :category, :title)
   end
 
+  def optional_male
+    BooleanParams.new(:male, { true: 'male', false: 'female' }, optional: true)
+  end
+
+  def optional_category
+    CollectionParams.new(:category_id, :category, :title, optional: true)
+  end
+
   friendly_url_for FriendlyRoutes::Route.new([male, category]),
                    :get, "/", controller: :friendly, action: :index, as: :friendly
+
+  friendly_url_for FriendlyRoutes::Route.new([optional_male, optional_category]),
+                   :get, "/", controller: :friendly, action: :index, as: :all_optional_friendly
 
   resources :friendly, only: :new
 end

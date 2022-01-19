@@ -1,6 +1,47 @@
 require 'spec_helper'
 
 describe 'Normalization', type: :request do
+  def formatted_routes
+    r = Rails.application.routes.routes
+    i = ActionDispatch::Routing::RoutesInspector.new(r)
+    f = ActionDispatch::Routing::ConsoleFormatter.new
+    i.format(f).split("\n")
+  end
+
+  # NOTE: We had to monkey patch ActionDispatch::Routing::Mapper in dispatcher.rb to revert
+  # changing URLs with all optional to require '/' at the beginning.
+  # Here we ensure that requesting such route works.
+  describe 'route with only optional params' do
+    before do
+      @cats = create :category, title: 'cats'
+      @dogs = create :category, title: 'dogs'
+      Rails.application.reload_routes!
+    end
+
+    it 'works for male only' do
+      get all_optional_friendly_path(friendly_routes_male: 'male')
+      expect(controller.params['male']).to eq('true')
+      expect(assigns(:path)).to eq('/male')
+    end
+
+    it 'works for category only' do
+      get all_optional_friendly_path(friendly_routes_category_id: 'cats')
+      expect(controller.params['category_id']).to eq(@cats.id)
+      expect(controller.params['male']).to eq(nil)
+      expect(assigns(:path)).to eq('/cats')
+    end
+
+    it 'works for both optional params' do
+      get all_optional_friendly_path(
+        friendly_routes_male: 'female',
+        friendly_routes_category_id: 'dogs'
+      )
+      expect(controller.params['category_id']).to eq(@dogs.id)
+      expect(controller.params['male']).to eq('false')
+      expect(assigns(:path)).to eq('/female/dogs')
+    end
+  end
+
   describe 'keep friendly route params in path' do
     before do
       boolean_param = build :boolean, name: 'male', statements: %w(male female)
@@ -12,7 +53,6 @@ describe 'Normalization', type: :request do
 
     it 'male' do
       get friendly_url(friendly_routes_male: 'male')
-
       expect(controller.params['male']).to eq('true')
       expect(assigns(:path)).to eq("/male")
     end
